@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <sys/wait.h>
+
+char inp[81],*word[16],*ptrinp;
+int i=0;
+pid_t pid;
 
 void prompt(){
 	char cwd[1024];
@@ -12,21 +17,36 @@ void prompt(){
 }
 
 void user_input(){
-	char inp[81],*word,*prgname,*param;
-	int count=0;
 	fgets(inp,81,stdin);
-	char *ptrinp=strdup(inp);
-	while( (word = strsep(&ptrinp," ")) != NULL ){
-       	count++;
-       	if(count==1) prgname=word;
-       	else param=word;
+	if ((strlen(inp)>0)&&(inp[strlen(inp)-1]=='\n')) inp[strlen(inp)-1]='\0';
+	ptrinp=strtok(inp," ");
+	while(ptrinp!=NULL){
+		word[i]=ptrinp;
+		i++;
+    	ptrinp=strtok(NULL," ");
 	}
 }
 
 int main()
 {
-	//while(1){
+	while(1){
 		prompt();
 		user_input();
-	//}
+		if(strcmp("exit",inp)==0){
+			printf("exit\n");
+			break;
+		}
+		pid = fork();
+		if(-1 == pid){
+			printf("Failed to create a child!\n");
+		}
+		else if(0 == pid){
+			//printf("child\n");
+			execvp(word[0],word);
+		}
+		else{
+			//printf("parent\n");
+			if(NULL == word[i]) waitpid(pid, NULL, 0);
+		}
+	}
 }
