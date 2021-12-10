@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+ 
 
 void prompt(){
 	char cwd[1024];
@@ -21,7 +22,7 @@ void user_input(char** input){
 	while((word = strsep(&ptrinp," ")) != NULL ){
        		count++;
        		word[strcspn(word, "\n")] = 0;
-       		input[count] = word;
+       		input[count] = word; 
 	}
 }
 
@@ -46,25 +47,58 @@ void exec_command(char** input){
     	}
 }
 
+void exit_shell(){
+	exit(0);
+}
+
+void change_dir(char* target){
+	if (chdir(target) != 0){
+		perror("Hata");
+	}
+}
+
+
+
+int classify(char* command){
+	if (!(strcmp(command, "cd"))) return 1;
+	else if (!(strcmp(command, "exit"))) return 2;
+	else if (!(strcmp(command, "showpid"))) return 3;
+	else return 0;
+}
+
+void memset_input(char** input){
+	int count = 0;
+	while(input[count] != NULL){
+		count++;
+	}
+	while(count + 1){
+		input[count] = NULL;
+		count--;
+	}
+}
 
 int main()
 {	
 	char *girdi[100];
+	int ps_switch;
 	
 	while(1){
-		
-		int count = 0;
 		prompt();
 		user_input(girdi);
-		exec_command(girdi);
-		while(girdi[count] != NULL){
-			count++;
-		}
-		while(count + 1){
-			girdi[count] = NULL;
-			count--;
-		}
+		ps_switch = classify(girdi[0]);
 		
+		switch (ps_switch) {
+		case 1:
+			change_dir(girdi[1]);
+			break;
+		case 2:
+			printf("Exiting...");
+			exit_shell();
+			break;
+		default:
+			exec_command(girdi);
+		}
+		memset_input(girdi);
 	}
 	
 }
