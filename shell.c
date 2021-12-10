@@ -7,7 +7,7 @@
 
 void prompt(){
 	char cwd[1024];
-    	getcwd(cwd, sizeof(cwd));
+    getcwd(cwd, sizeof(cwd));
    	char *username = getlogin();
    	printf("\033[0;33m");
 	printf("%s/: %s > ",cwd,username);
@@ -92,7 +92,7 @@ int main()
 			change_dir(girdi[1]);
 			break;
 		case 2:
-			printf("Exiting...");
+			printf("Exiting...\n");
 			exit_shell();
 			break;
 		default:
