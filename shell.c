@@ -9,7 +9,7 @@ int count=0;
  
 void prompt(){
 	char cwd[1024];
-    getcwd(cwd, sizeof(cwd)); //Dosya konumunu alma
+	getcwd(cwd, sizeof(cwd)); //Dosya konumunu alma
    	char *username = getlogin(); //Kullanıcı bilgisini alma
    	printf("\033[0;33m"); //Renk belirleme
 	printf("%s/: %s > ",cwd,username); //Prompt yazdırma
