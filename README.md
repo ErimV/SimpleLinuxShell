@@ -4,16 +4,19 @@
 -Kayra Uluay
 -Furkan Aktaş
 
-**Dosyaların Açıklaması:
--shell.c çalışan kodların olduğu dosya 
--shell_test.c deneme kodlarının yapıldığı dosya
+**Dizinleri listesi:
+-shell.c : ana program
 
+**Derleme için:
+GCC kullanılarak "gcc shell.c" yazılarak derlenebilir.
+
+**Çalıştırma için:
+"./a.out" yazılarak çalıştırılabilinir.
 
 **Program yazmamız için yardımcı kaynaklar:
 -geeksforgeeks
 -stackoverflow
 -systutorials
-
 
 **Geliştirme sırasında karşılaşılan zorluklar:
 -Derleme hatalarının çözümlerini bulmak 
