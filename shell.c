@@ -9,16 +9,18 @@ int count=0;
  
 void prompt(){
 	char cwd[1024];
-	getcwd(cwd, sizeof(cwd)); //Dosya konumunu alma
+    	getcwd(cwd, sizeof(cwd)); //Dosya konumunu alma
    	char *username = getlogin(); //Kullanıcı bilgisini alma
    	printf("\033[0;33m"); //Renk belirleme
-	printf("%s/: %s > ",cwd,username); //Prompt yazdırma
+	printf("%s/: %s >> ",cwd,username); //Prompt yazdırma
 	printf("\033[0m"); //Rengi default hale getirme
 }
 
 void entry_msg(){
 	printf("\033[H\033[J"); //Shell'i temizleme
+	printf("\033[0;33m"); //Renk belirleme
 	printf("----50.Grup Isletim Sistemleri Proje Odevi----\n");
+	printf("\033[0m"); //Rengi default hale getirme
 }
 
 void user_input(char** input){
@@ -28,9 +30,9 @@ void user_input(char** input){
 	fgets(inp,81,stdin);
 	char *ptrinp = strdup(inp);
 	while((word = strsep(&ptrinp," ")) != NULL ){
-       	count++;
-       	word[strcspn(word, "\n")] = 0;
-       	input[count] = word;
+       		count++;
+       		word[strcspn(word, "\n")] = 0;
+       		input[count] = word;
 	}
 }
 
@@ -40,12 +42,16 @@ void exec_command(char** input){
 	int pid = fork();
 	
 	if (pid == -1) {
-        printf("Forklama basarisiz.\n");
-        return;
+		printf("\033[0;31m"); //Renk belirleme
+        	printf("Forklama basarisiz.\n");
+        	printf("\033[0m"); //Rengi default hale getirme
+        	return;
     } 
     else if (pid == 0) {
         if (execvp(input[0], input) < 0) {
+        	printf("\033[0;31m"); //Renk belirleme
         	printf("Hata: Komut icra edilemiyor.\n");
+        	printf("\033[0m"); //Rengi default hale getirme
         }
     	exit(EXIT_FAILURE);
     } 
@@ -110,7 +116,9 @@ int main()
 			change_dir(input[1]);
 			break;
 		case 2:
+			printf("\033[0;33m"); //Renk belirleme
 			printf("Exiting...\n");
+			printf("\033[0m"); //Rengi default hale getirme
 			exit_shell();
 			break;
 		case 3:
