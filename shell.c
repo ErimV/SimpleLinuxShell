@@ -102,7 +102,8 @@ int main()
 			exit_shell();
 			break;
 		case 3:
-			showpid();	
+			showpid();
+			break;
 		default:
 			exec_command(girdi);
 		}
