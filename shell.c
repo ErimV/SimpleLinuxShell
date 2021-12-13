@@ -6,50 +6,56 @@
 
 int pids[5];
 int count=0;
-
+ 
 void prompt(){
 	char cwd[1024];
-    getcwd(cwd, sizeof(cwd));
-   	char *username = getlogin();
-   	printf("\033[0;33m");
-	printf("%s/: %s > ",cwd,username);
-	printf("\033[0m");
+    getcwd(cwd, sizeof(cwd)); //Dosya konumunu alma
+   	char *username = getlogin(); //Kullanıcı bilgisini alma
+   	printf("\033[0;33m"); //Renk belirleme
+	printf("%s/: %s > ",cwd,username); //Prompt yazdırma
+	printf("\033[0m"); //Rengi default hale getirme
+}
+
+void entry_msg(){
+	printf("\033[H\033[J"); //Shell'i temizleme
+	printf("----50.Grup Isletim Sistemleri Proje Odevi----\n");
 }
 
 void user_input(char** input){
+	//Kullanıcı girişi alma ve kelimelere ayırma işlemi
 	char inp[81],*word;
 	int count = -1;
 	fgets(inp,81,stdin);
 	char *ptrinp = strdup(inp);
 	while((word = strsep(&ptrinp," ")) != NULL ){
-       		count++;
-       		word[strcspn(word, "\n")] = 0;
-       		input[count] = word; 
+       	count++;
+       	word[strcspn(word, "\n")] = 0;
+       	input[count] = word;
 	}
 }
 
 void exec_command(char** input){
 	
 	int stat;
-	pid_t pid = fork();
+	int pid = fork();
 	
 	if (pid == -1) {
-        	printf("Forklama basarisiz.\n");
-        	return;
-    	} 
-    	else if (pid == 0) {
-        	if (execvp(input[0], input) < 0) {
-        		printf("Hata: Komut icra edilemiyor.\n");
-        	}
-        	exit(EXIT_FAILURE);
-    	} 
-    	else {
-		
-        	waitpid(pid, &stat, WUNTRACED); 
-		pids[count]=pid;
-		count++;
-        	return;
-    	}
+        printf("Forklama basarisiz.\n");
+        return;
+    } 
+    else if (pid == 0) {
+        if (execvp(input[0], input) < 0) {
+        	printf("Hata: Komut icra edilemiyor.\n");
+        }
+    	exit(EXIT_FAILURE);
+    } 
+    else {
+    	//pid tutma
+    	pids[count] = pid;
+    	count++;
+    	waitpid(pid, &stat, WUNTRACED);
+        return;
+    }
 }
 
 void exit_shell(){
@@ -62,9 +68,15 @@ void change_dir(char* target){
 	}
 }
 
-
+void show_pid(){
+	//showpid yazdırma
+	for(int i=0;i<5;i++){
+		printf("%d\n",pids[i]);
+	}
+}
 
 int classify(char* command){
+	//Girilen komut built-in komut mu kontrolu
 	if (!(strcmp(command, "cd"))) return 1;
 	else if (!(strcmp(command, "exit"))) return 2;
 	else if (!(strcmp(command, "showpid"))) return 3;
@@ -81,36 +93,32 @@ void memset_input(char** input){
 		count--;
 	}
 }
-void showpid(){
-	for(int i =0;i<5;i++){
-		printf(pids[i]);
-	}
-}
+
 int main()
 {	
-	char *girdi[100];
+	char *input[100];
 	int ps_switch;
+	entry_msg();
 	
 	while(1){
 		prompt();
-		user_input(girdi);
-		ps_switch = classify(girdi[0]);
+		user_input(input);
+		ps_switch = classify(input[0]);
 		
 		switch (ps_switch) {
 		case 1:
-			change_dir(girdi[1]);
+			change_dir(input[1]);
 			break;
 		case 2:
 			printf("Exiting...\n");
 			exit_shell();
 			break;
 		case 3:
-			showpid();
+			show_pid();
 			break;
 		default:
-			exec_command(girdi);
+			exec_command(input);
 		}
-		memset_input(girdi);
+		memset_input(input);
 	}
-	
 }
