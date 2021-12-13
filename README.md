@@ -4,6 +4,10 @@
 -Kayra Uluay
 -Furkan Aktaş
 
+**Dosyaların Açıklaması:
+-shell.c çalışan kodların olduğu dosya 
+-shell_test.c deneme kodlarının yapıldığı dosya
+
 
 **Program yazmamız için yardımcı kaynaklar:
 -geeksforgeeks
