@@ -1,7 +1,7 @@
 # 50.Grup
 **Grup Üyeleri:
 -Erim Vurucu
--Kayra Uluay
+-Kayra Tuluay
 -Furkan Aktaş
 
 **Dizinleri listesi:
