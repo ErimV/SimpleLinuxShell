@@ -79,7 +79,7 @@ void memset_input(char** input){
 void showpid(){
 	p_id=getpid();
 	p_pid=getpid();
-	printf("process id: %d\n,p_pid);
+	printf("process id: %d\n,p_id);
 	printf("parent process id: %d\n,p_pid);
 }
 int main()
