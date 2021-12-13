@@ -23,5 +23,5 @@ GCC kullanılarak "gcc shell.c" yazılarak derlenebilir.
 -İstenilen plan doğrultusunda ilerleyemek(hastalık,okul,çalışma...)
 
 **ONEMLI!
-Kali'de hiçbir sorun yok iken Ubuntuda ps komutu parametreli olarak ilk seferde çalışmayıp ikinciye tekrar denendiğinde çalışıyor.
+Kali'de hiçbir sorun yok iken Ubuntu'da ps komutu parametreli olarak ilk seferde çalışmayıp ikinciye tekrar denendiğinde çalışıyor.
 
