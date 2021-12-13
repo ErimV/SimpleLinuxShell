@@ -76,9 +76,15 @@ void memset_input(char** input){
 		count--;
 	}
 }
-
+void showpid(){
+	p_id=getpid();
+	p_pid=getpid();
+	printf("process id: %d\n,p_pid);
+	printf("parent process id: %d\n,p_pid);
+}
 int main()
 {	
+	int p_id,p_pid;
 	char *girdi[100];
 	int ps_switch;
 	
@@ -95,6 +101,8 @@ int main()
 			printf("Exiting...\n");
 			exit_shell();
 			break;
+		case 3:
+			showpid();	
 		default:
 			exec_command(girdi);
 		}
