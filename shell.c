@@ -3,7 +3,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/wait.h>
- 
+
+int pids[5];
+int count=0;
 
 void prompt(){
 	char cwd[1024];
@@ -42,7 +44,10 @@ void exec_command(char** input){
         	exit(EXIT_FAILURE);
     	} 
     	else {
+		
         	waitpid(pid, &stat, WUNTRACED); 
+		pids[count]=pid;
+		count++;
         	return;
     	}
 }
@@ -77,14 +82,12 @@ void memset_input(char** input){
 	}
 }
 void showpid(){
-	p_id=getpid();
-	p_pid=getpid();
-	printf("process id: %d\n,p_id);
-	printf("parent process id: %d\n,p_pid);
+	for(int i =0;i<5;i++){
+		printf(pids[i]);
+	}
 }
 int main()
 {	
-	int p_id,p_pid;
 	char *girdi[100];
 	int ps_switch;
 	
