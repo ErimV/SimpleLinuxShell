@@ -80,7 +80,7 @@ void exit_shell(){
 void change_dir(char* target){
 	//Built-in cd komutu
 	if (chdir(target) != 0){
-		perror("Hata");//Yanlis bir dosya yolu girildiginde hata verir
+		perror("\033[0;31mHata\033[0m");//Yanlis bir dosya yolu girildiginde hata verir
 	}
 }
 
