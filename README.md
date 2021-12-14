@@ -20,7 +20,7 @@ GCC kullanılarak "gcc shell.c" yazılarak derlenebilir.
 
 **Geliştirme sırasında karşılaşılan zorluklar:
 -Derleme hatalarının çözümlerini bulmak 
--İstenilen plan doğrultusunda ilerleyemek(hastalık,okul,çalışma...)
+-İstenilen plan doğrultusunda ilerleyemekmek(hastalık,okul,çalışma...)
 
 **ONEMLI!
 Kali'de hiçbir sorun yok iken Ubuntu'da ps komutu parametreli olarak ilk seferde çalışmayıp ikinciye tekrar denendiğinde çalışıyor.
