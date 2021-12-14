@@ -7,6 +7,7 @@
 
 **Dizinlerin listesi:**
 - shell.c : ana program
+- 50.Grup-main.zip : .zip uzantılı hali
 
 **Derleme için:**
 - GCC kullanılarak "gcc shell.c" yazılarak derlenebilir.
